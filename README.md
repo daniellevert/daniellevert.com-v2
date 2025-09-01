@@ -1,6 +1,7 @@
-# DANIELLEVERT — React + TypeScript
+# DANIELLEVERT.COM — Written in React + TypeScript
 
-A conversion of the static portfolio (HTML/CSS/JS) into a modern React + TypeScript single-page app using Vite.
+Version 2 of Daniel LeVert's portfolio site. A conversion of the static portfolio (HTML/CSS/JS) into a modern React + TypeScript single-page app using Vite.
+Now includes video and design work in addition to photo and code.
 
 ## Quick start
 
@@ -20,11 +21,19 @@ npm run preview
 
 ## Structure
 
-- `src/pages/Photos.tsx` — auto-imports any images placed in `public/photos`.
+- `src/pages/Landing.tsx` — landing page.
+- `src/pages/Photo.tsx` — auto-imports any images placed in `public/photo`.
+- `src/pages/Video.tsx` — auto-imports any videos placed in `public/video`.
+- `src/pages/Design.tsx` — auto-imports any images placed in `public/design`.
 - `src/pages/Code.tsx` — shows curated projects (`src/data/projects.ts`). If empty, it fetches recent public repos from GitHub (`daniellevert`).
 - `src/pages/About.tsx` — about/me content.
+
 - `src/components/Lightbox.tsx` — simple lightbox used on the photo grid.
+- `src/components/DesignPopover.tsx` — simple popover used on the design grid.
+
+- `src/data/` - contains data for the design, about, and video pages.
 - `src/styles/` — minimal reset + global SCSS to match the original aesthetic.
+- `public/` - contains static assets for the photo page, favicon, and robots.txt.
 
 ## Deployment tips
 
@@ -33,10 +42,5 @@ npm run preview
 
 ## Future-ready notes
 
-- Add a **Video** page by duplicating `Photos.tsx` and pointing at `public/videos`.
 - For dynamic content and infinite scroll, create an API endpoint or JSON feed and swap the `import.meta.glob` with a paginated fetch.
 - If you prefer BrowserRouter, configure your host to route all paths to `index.html`.
-
----
-
-Generated on 2025-08-25.
