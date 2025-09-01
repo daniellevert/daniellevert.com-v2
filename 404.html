@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Redirecting…</title>
+    <script>
+      // If someone hits a deep route, send them back to the SPA entry with hash.
+      (function() {
+        var l = window.location;
+        var path = l.pathname.replace(/^\//, '');
+        window.location.replace('/#/' + path + l.search + l.hash);
+      })();
+    </script>
+  </head>
+  <body>Redirecting…</body>
+</html>
