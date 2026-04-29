@@ -10,6 +10,13 @@ export type VideoItem = {
 
 export const VIDEOS: VideoItem[] = [
   {
+    id: 'iykyk-sample',
+    title: 'IYKYK: Met Gala - Hosting, Writing, and Editing Sample',
+    kind: 'other',
+    url: 'https://youtu.be/-13JG2LUGcw',
+    description: 'Sample of my work as a host, writer, and editor for IYKYK: Met Gala.'
+  },
+  {
     id: 'marys-story',
     title: 'Mary\'s Story (No Adults Left Behind)',
     kind: 'short',
