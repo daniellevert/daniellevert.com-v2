@@ -13,7 +13,7 @@ export const VIDEOS: VideoItem[] = [
     id: 'iykyk-sample',
     title: 'IYKYK: Met Gala - Hosting, Writing, and Editing Sample',
     kind: 'other',
-    url: 'https://youtu.be/-13JG2LUGcw',
+    url: 'https://youtu.be/--Md-j3VcE8',
     description: 'Sample of my work as a host, writer, and editor for IYKYK: Met Gala.'
   },
   {
