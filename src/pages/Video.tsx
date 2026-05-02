@@ -35,11 +35,11 @@ export default function VideoPage() {
     <section className="wrap">
       <div className="hero" style={{ margin: '2rem 0 1rem' }}>
         <h1>Video</h1>
-        <h2>commercial & short film</h2>
+        <h2>brand & editorial video</h2>
       </div>
 
       <div className="filters">
-        {(['all','commercial','short'] as Filter[]).map(f => (
+        {(['all','brand','editorial'] as Filter[]).map(f => (
           <button
             key={f}
             className={`chip ${filter === f ? 'active' : ''}`}
