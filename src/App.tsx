@@ -1,4 +1,4 @@
-import { Routes, Route, NavLink } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Header from './pages/Header'
 import Landing from './pages/Landing'
 import Photo from './pages/Photo'
@@ -9,9 +9,12 @@ import About from './pages/About'
 import NotFound from './pages/NotFound'
 
 export default function App() {
+  const loc = useLocation()
+  const isLanding = loc.pathname === '/'
+
   return (
-    <div className="wrap">
-      <Header />
+    <div className={`app-shell wrap ${isLanding ? 'app-shell--landing' : ''}`}>
+      {!isLanding && <Header />}
       <main>
         <Routes>
           {/* Landing first */}
