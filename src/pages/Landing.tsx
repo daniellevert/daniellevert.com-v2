@@ -1,145 +1,120 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { type CSSProperties, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { advance, delayFor, FADE_MS, type AnimationState } from '../lib/landingAnimation'
 
 const WORDS = [
-  '.creative',
-  '.thinker',
-  '.coder',
-  '.engineer',
-  '.artist',
-  '.photographer',
-  '.filmmaker',
-  '.storyteller',
-  '.editor',
-  '.curious',
-  '.disciplined',
-  '.playful',
-  '.builder',
-  '.writer',
-  '.designer',
-  '.actor',
-] as const
+  'creative', 'thinker', 'coder', 'engineer', 'artist', 'photographer',
+  'filmmaker', 'storyteller', 'editor', 'curious', 'disciplined', 'playful',
+  'builder', 'writer', 'designer', 'actor',
+]
 
+// Optional line breaks are presentation data; animation counts only real letters.
+const BREAKS: Record<string, string> = {
+  creative: 'crea-tive', thinker: 'think-er', coder: 'cod-er', engineer: 'en-gi-neer',
+  artist: 'art-ist', photographer: 'pho-tog-ra-pher', filmmaker: 'film-mak-er',
+  storyteller: 'sto-ry-tell-er', editor: 'ed-i-tor', curious: 'cu-ri-ous',
+  disciplined: 'dis-ci-plined', playful: 'play-ful', builder: 'build-er',
+  writer: 'writ-er', designer: 'de-sign-er', actor: 'ac-tor',
+}
 const NAV_ITEMS = [
   { label: 'photo', to: '/photo?f=featured' },
   { label: 'video', to: '/video' },
   { label: 'design', to: '/design' },
   { label: 'code', to: '/code' },
   { label: 'about/me', to: '/about' },
-] as const
+]
 
-const TYPE_MS = 40
-const HOLD_AFTER_LINE = 200
-const HOLD_AFTER_SET = 2600
-const HOLD_AFTER_FIRST_SEQUENCE = 5200
-const SET_FADE_MS = 450
-const LEAVE_FADE_MS = 300
-const MAX_SETS = 3
+function pickWords() {
+  const pool = [...WORDS]
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[pool[i], pool[j]] = [pool[j], pool[i]]
+  }
+  return pool.slice(0, 5).map(word => `.${word}`)
+}
 
 export default function Landing() {
-  const navigate = useNavigate()
-  const initialWords = useMemo(() => pickRandomWords(WORDS, 3), [])
-  const [words, setWords] = useState<[string, string, string]>(initialWords)
-  const [typed, setTyped] = useState<[number, number, number]>([0, 0, 0])
-  const [line, setLine] = useState(0)
-  const [cycling, setCycling] = useState(false)
-  const [setCount, setSetCount] = useState(1)
-  const [leaving, setLeaving] = useState(false)
+  const block = useRef<HTMLDivElement>(null)
+  const [wordCount, setWordCount] = useState(3)
+  const [reducedMotion, setReducedMotion] = useState(false)
+  const [animation, setAnimation] = useState<AnimationState>(() => ({
+    words: pickWords(), shown: 0, phase: 'typing', cycle: 0,
+  }))
 
   useEffect(() => {
-    if (cycling || leaving) return
+    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReducedMotion(media.matches)
+    update()
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
 
-    if (line <= 2) {
-      const text = words[line]
-      if (typed[line] < text.length) {
-        const t = window.setTimeout(() => {
-          setTyped(prev => {
-            const next = [...prev] as [number, number, number]
-            next[line] = Math.min(text.length, prev[line] + 1)
-            return next
-          })
-        }, TYPE_MS)
-        return () => window.clearTimeout(t)
-      } else {
-        const h = window.setTimeout(() => setLine(l => l + 1), HOLD_AFTER_LINE)
-        return () => window.clearTimeout(h)
+  useEffect(() => {
+    if (reducedMotion) return
+    const timer = window.setTimeout(() => {
+      setAnimation(current => advance(current, wordCount,
+        current.phase === 'fading' ? pickWords() : current.words))
+    }, delayFor(animation, wordCount))
+    return () => window.clearTimeout(timer)
+  }, [animation, wordCount, reducedMotion])
+
+  useLayoutEffect(() => {
+    const element = block.current
+    if (!element) return
+    const fit = () => {
+      // CSS owns the breakpoint and visible count; resizing never remounts the animation.
+      const count = Number(getComputedStyle(element).getPropertyValue('--word-count'))
+      setWordCount(count)
+      element.style.removeProperty('--typing-size')
+      const sample = element.querySelector<HTMLElement>('.typed')
+      if (!sample) return
+      const preferred = parseFloat(getComputedStyle(sample).fontSize)
+      const fits = () => element.scrollHeight <= element.clientHeight + 1 && element.scrollWidth <= element.clientWidth + 1
+      if (fits()) return
+      // A bounded fallback for unusually long sets: at most seven measurements, never below 24px.
+      let low = 24
+      let high = Math.max(low, preferred)
+      for (let step = 0; step < 6; step++) {
+        const middle = (low + high) / 2
+        element.style.setProperty('--typing-size', `${middle}px`)
+        if (fits()) low = middle
+        else high = middle
       }
+      element.style.setProperty('--typing-size', `${low}px`)
     }
+    const observer = new ResizeObserver(fit)
+    observer.observe(element)
+    fit()
+    return () => observer.disconnect()
+  }, [animation.words])
 
-    if (line === 3) {
-      const h = window.setTimeout(() => {
-        setCycling(true)
-      }, setCount >= MAX_SETS ? HOLD_AFTER_FIRST_SEQUENCE : HOLD_AFTER_SET)
-      return () => window.clearTimeout(h)
-    }
-  }, [cycling, leaving, line, setCount, typed, words])
-
-  useEffect(() => {
-    if (!cycling || leaving) return
-    const t = window.setTimeout(() => {
-      setWords(pickRandomWords(WORDS, 3))
-      setTyped([0, 0, 0])
-      setLine(0)
-      setSetCount((count) => (count >= MAX_SETS ? 1 : count + 1))
-      setCycling(false)
-    }, SET_FADE_MS)
-    return () => window.clearTimeout(t)
-  }, [cycling, leaving])
-
-  function handleNavigate(to: string) {
-    if (leaving) return
-    setLeaving(true)
-    window.setTimeout(() => navigate(to), LEAVE_FADE_MS)
-  }
-
-  const [t0, t1, t2] = typed
-  const [s0, s1, s2] = words
-
+  let preceding = 0
   return (
-    <section className={`landing landing-centered ${leaving ? 'is-leaving' : ''}`}>
+    <section className="landing landing-centered" style={{ '--set-fade': `${FADE_MS}ms` } as CSSProperties}>
       <div className="landing-shell">
         <div className="landing-brand-group">
-          <div className="landing-brand">DANIELLEVERT.</div>
+          <div className="landing-brand"><Link to="/photo?f=featured" aria-label="Daniel LeVert photography">DANIELLEVERT.</Link></div>
           <div className="landing-tagline">ENGINEER + CREATIVE</div>
         </div>
-
         <nav className="landing-nav" aria-label="Primary">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.to}
-              type="button"
-              className="landing-nav-link"
-              onClick={() => handleNavigate(item.to)}
-            >
-              {item.label}
-            </button>
-          ))}
+          {NAV_ITEMS.map(item => <Link key={item.to} className="landing-nav-link" to={item.to}>{item.label}</Link>)}
         </nav>
-
-        <div className={`typing-block ${cycling ? 'fade-out' : ''}`} aria-live="polite">
-          <TypingLine text={s0} shown={t0} showCursor={line === 0 && t0 < s0.length} />
-          <TypingLine text={s1} shown={t1} showCursor={line === 1 && t1 < s1.length} />
-          <TypingLine text={s2} shown={t2} showCursor={line === 2 && t2 < s2.length} />
+        <p className="sr-only">Daniel LeVert — engineer and creative. Photography, filmmaking, design, and code.</p>
+        <div ref={block} className={`typing-block ${animation.phase === 'fading' && !reducedMotion ? 'fade-out' : ''}`} aria-hidden="true" lang="en">
+          {animation.words.map(word => {
+            const shown = reducedMotion ? word.length : Math.max(0, animation.shown - preceding)
+            preceding += word.length
+            const decorated = `.${(BREAKS[word.slice(1)] ?? word.slice(1)).replace(/-/g, '\u00ad')}`
+            let letters = 0
+            return <div className="typing-line" key={word}><span className="typed">
+              {Array.from(decorated).map((letter, index) => {
+                if (letter !== '\u00ad') letters++
+                return <span key={index} className={letters > shown ? 'typing-unrevealed' : undefined}>{letter}</span>
+              })}
+            </span></div>
+          })}
         </div>
       </div>
     </section>
   )
-}
-
-function TypingLine({ text, shown, showCursor }: { text: string; shown: number; showCursor: boolean }) {
-  return (
-    <div className="typing-line">
-      <span className="typed">{text.slice(0, shown)}</span>
-      <span className={`cursor ${showCursor ? 'on' : ''}`} aria-hidden="true">|</span>
-    </div>
-  )
-}
-
-function pickRandomWords(words: readonly string[], count: number) {
-  const pool = [...words]
-  for (let i = pool.length - 1; i > 0; i -= 1) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[pool[i], pool[j]] = [pool[j], pool[i]]
-  }
-  return pool.slice(0, count) as [string, string, string]
 }
