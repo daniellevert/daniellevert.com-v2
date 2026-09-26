@@ -10,13 +10,6 @@ export type VideoItem = {
 
 export const VIDEOS: VideoItem[] = [
   {
-    id: 'iykyk-sample',
-    title: 'IYKYK: Met Gala - Hosting, Writing, and Producing Sample',
-    kind: 'editorial',
-    url: 'https://youtu.be/--Md-j3VcE8',
-    description: 'Sample of my work as a host, writer, and producer for IYKYK: Met Gala.'
-  },
-  {
     id: 'marys-story',
     title: 'Mary\'s Story (No Adults Left Behind)',
     kind: 'brand',
@@ -36,5 +29,12 @@ export const VIDEOS: VideoItem[] = [
     kind: 'brand',
     url: 'https://vimeo.com/226242300',
     description: 'Ad created for Illinois restaurant Fratello\'s in 2017.'
+  },
+  {
+    id: 'iykyk-sample',
+    title: 'IYKYK: Met Gala - Hosting, Writing, and Producing Sample',
+    kind: 'editorial',
+    url: 'https://youtu.be/--Md-j3VcE8',
+    description: 'Sample of my work as a host, writer, and producer for IYKYK: Met Gala.'
   }
 ]
