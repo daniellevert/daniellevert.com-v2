@@ -213,10 +213,7 @@ footer.site a { text-decoration: underline; }
   gap: 18px;
   padding-top: clamp(12px, 6vh, 64px);
   padding-bottom: clamp(20px, 8vh, 88px);
-  transition: opacity 300ms ease;
-}
-.landing.is-leaving {
-  opacity: 0;
+
 }
 .landing-centered {
   height: 100%;
@@ -257,6 +254,7 @@ footer.site a { text-decoration: underline; }
 }
 
 .typing-block {
+  --word-count: 3;
   grid-area: words;
   display: grid;
   container-type: size;
@@ -267,8 +265,9 @@ footer.site a { text-decoration: underline; }
   min-width: 0;
   text-align: left;
   user-select: none;
-  transition: opacity 450ms ease;
+  transition: opacity var(--set-fade) ease;
 }
+.typing-line:nth-child(n + 4) { display: none; }
 .typing-block.fade-out {
   opacity: 0;
 }
@@ -327,23 +326,24 @@ footer.site a { text-decoration: underline; }
 .typing-line .typed {
   min-width: 0;
   max-width: 100%;
-  font-size: var(--typing-size, min(9vw, 156px, 28cqh));
+  font-size: var(--typing-size, max(24px, min(9vw, 156px, 28cqh)));
   white-space: normal;
   hyphens: manual;
   overflow-wrap: normal;
 }
 .typing-unrevealed { visibility: hidden; }
 
-@media (max-width: 640px) {
+@media (max-width: 640px) and (min-height: 501px) {
   .landing-shell {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto minmax(0, 1fr) auto;
     grid-template-areas: "brand" "words" "nav";
     row-gap: 12px;
   }
-  .typing-block { gap: 8px; }
+  .typing-block { --word-count: 5; gap: 8px; }
+  .typing-line:nth-child(n + 4) { display: flex; }
   .typing-line .typed {
-    font-size: var(--typing-size, 23cqw);
+    font-size: var(--typing-size, max(24px, 23cqw));
     white-space: normal;
     hyphens: manual;
     overflow-wrap: normal;
@@ -362,6 +362,16 @@ footer.site a { text-decoration: underline; }
     min-height: 44px;
     text-align: right;
   }
+}
+
+/* Short landscape screens keep all navigation accessible without a tall stack. */
+@media (max-height: 500px) {
+  .landing-centered { padding-block: 8px; }
+  .landing-brand-group { padding-bottom: 0; gap: 2px; }
+  .landing-shell { row-gap: 8px; }
+  .landing-nav { gap: 2px; }
+  .landing-nav-link { font-size: clamp(20px, 6dvh, 28px); line-height: 1.15; }
+  .typing-block { gap: 4px; }
 }
 
 /* DESIGN: SINGLE-COLUMN, FULLY CLICKABLE CARDS ----------------------------- */
