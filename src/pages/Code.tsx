@@ -117,8 +117,9 @@ export default function Code() {
         const pinned = pin.map(p => cards.find(c => c.name === p)).filter(Boolean) as Card[]
 
         if (!cancelled) setRepos([...pinned, ...unpinned])
-      } catch (e: any) {
-        if (!cancelled) setErr(e?.message || 'Failed to load repositories')
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : 'Failed to load repositories'
+        if (!cancelled) setErr(message)
       }
     })()
     return () => { cancelled = true }

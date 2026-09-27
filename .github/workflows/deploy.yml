@@ -22,11 +22,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build site
-        run: npm run build
+      - name: Run lint
+        run: npm run lint
 
       - name: Run tests
         run: npm test
+
+      - name: Build site
+        run: npm run build
 
       - name: Deploy dist to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
