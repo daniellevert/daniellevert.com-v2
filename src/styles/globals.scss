@@ -254,7 +254,6 @@ footer.site a { text-decoration: underline; }
 }
 
 .typing-block {
-  --word-count: 3;
   grid-area: words;
   display: grid;
   container-type: size;
@@ -333,35 +332,29 @@ footer.site a { text-decoration: underline; }
 }
 .typing-unrevealed { visibility: hidden; }
 
-@media (max-width: 640px) and (min-height: 501px) {
-  .landing-shell {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr) auto;
-    grid-template-areas: "brand" "words" "nav";
-    row-gap: 12px;
-  }
-  .typing-block { --word-count: 5; gap: 8px; }
-  .typing-line:nth-child(n + 4) { display: flex; }
-  .typing-line .typed {
-    font-size: var(--typing-size, max(24px, 23cqw));
-    white-space: normal;
-    hyphens: manual;
-    overflow-wrap: normal;
-  }
-  .landing-nav {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0 20px;
-    padding: 0;
-  }
-  .landing-nav-link {
-    font-size: clamp(24px, 6.8vw, 40px);
-    min-height: 44px;
-    text-align: right;
-  }
+.landing--expanded .landing-shell {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas: "brand" "words" "nav";
+  row-gap: 12px;
+}
+.landing--expanded .typing-block { gap: 8px; }
+.landing--expanded .typing-line:nth-child(n + 4) { display: flex; }
+.landing--expanded .typing-line .typed {
+  font-size: var(--typing-size, max(24px, 23cqw));
+}
+.landing--expanded .landing-nav {
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0 20px;
+  padding: 0;
+}
+.landing--expanded .landing-nav-link {
+  font-size: clamp(24px, 6.8vw, 40px);
+  min-height: 44px;
+  text-align: right;
 }
 
 /* Short landscape screens keep all navigation accessible without a tall stack. */

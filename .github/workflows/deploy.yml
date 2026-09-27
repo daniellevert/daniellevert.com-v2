@@ -25,6 +25,9 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Run tests
+        run: npm test
+
       - name: Deploy dist to cPanel
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
