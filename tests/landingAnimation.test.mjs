@@ -2,12 +2,12 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { advance, delayFor, FADE_MS, LINE_PAUSE_MS } from '../src/lib/landingAnimation.ts'
 
-const words = ['.one', '.two', '.three', '.four', '.five']
+const words = ['one', 'two', 'three', 'four', 'five'].map(value => ({ value, display: value }))
 const initial = () => ({ words, shown: 0, phase: 'typing', cycle: 0 })
 
 test('types visible words, holds, fades, and starts the next set', () => {
   let state = initial()
-  const length = words.slice(0, 3).join('').length
+  const length = 14
   for (let i = 0; i < length; i++) state = advance(state, 3, words)
   assert.equal(state.shown, length)
   state = advance(state, 3, words)
@@ -19,7 +19,7 @@ test('types visible words, holds, fades, and starts the next set', () => {
   state = advance(state, 3, [...words].reverse())
   assert.equal(state.shown, 0)
   assert.equal(state.cycle, 1)
-  assert.equal(state.words[0], '.five')
+  assert.equal(state.words[0].value, 'five')
 })
 
 test('pauses between words and holds longer on the third cycle', () => {
@@ -38,4 +38,17 @@ test('shrinking completes the visible set without waiting for hidden words', () 
   const state = advance({ ...initial(), shown: 18 }, 3, words)
   assert.equal(state.phase, 'holding')
   assert.equal(state.shown, 14)
+})
+
+test('a responsive expansion does not interrupt an active fade', () => {
+  const state = { ...initial(), shown: 14, phase: 'fading' }
+  const nextWords = [...words].reverse()
+
+  assert.equal(delayFor(state, 5), FADE_MS)
+  assert.deepEqual(advance(state, 5, nextWords), {
+    words: nextWords,
+    shown: 0,
+    phase: 'typing',
+    cycle: 1,
+  })
 })
