@@ -103,7 +103,8 @@ export default function Photo() {
     setIndex(null)
     setSelected(prev => {
       const s = new Set(prev)
-      s.has(f) ? s.delete(f) : s.add(f)
+      if (s.has(f)) s.delete(f)
+      else s.add(f)
       return s
     })
   }

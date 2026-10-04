@@ -19,6 +19,16 @@ npm run build
 npm run preview
 ```
 
+## Branch naming
+
+Name working branches `<type>/<number>-<short-description>`:
+
+- `type` is the applicable Conventional Commits type, such as `feat`, `fix`, `refactor`, `test`, `docs`, or `chore`.
+- `number` is the next repository-wide sequence number, padded to three digits.
+- `short-description` is lowercase kebab case.
+
+For example: `refactor/005-landing-animation-followup`.
+
 ## Structure
 
 - `src/pages/Landing.tsx` — landing page.
