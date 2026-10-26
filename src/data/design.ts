@@ -86,8 +86,8 @@ export const DESIGN: DesignProject[] = [
   {
     id: 'fomo',
     title: 'FOMO',
-    summary: 'An event app concept designed to help people connect through real-life experiences.',
-    description: 'FOMO is an event app concept designed to bring people together in real life. I created two rounds of UI mockups in Illustrator and Photoshop, imagining how hosts and guests could find each other, make plans, and share the experience.',
+    summary: 'An event app concept built around a mutual match between guests and hosts.',
+    description: 'FOMO imagines a more social way to find a night out: guests swipe through events, hosts curate their guest lists, and a mutual yes becomes an invitation. I led the concept and created two rounds of UI mockups in Illustrator and Photoshop after talking through the idea with a friend.',
     tools: ['Adobe Illustrator', 'Adobe Photoshop'],
     cover: '/design/fomo/cover.jpg',
     images: [
@@ -101,14 +101,14 @@ export const DESIGN: DesignProject[] = [
       {
         title: 'The idea',
         paragraphs: [
-          'An event starts before anyone walks through the door. FOMO imagines how hosts could share what they are creating and guests could find a gathering that feels worth showing up for. The mockups follow discovery, invitations, RSVP and check-in, profiles, and the memories left after an event.',
-          'I designed the UI and visual direction across two rounds of mockups. This is a concept, with the original screens as its deliverable.',
+          'The idea grew from wanting more in-person connection at a time when social media was taking up more of our social lives. We imagined starting on college campuses, where students looking for plans and people hosting events might both want a more intentional way to find each other. The concept took shape around the pandemic. The mockups shown here do not establish a launch or user-testing outcome.',
+          'The core interaction is two-sided: guests swipe through events they might attend, while hosts decide whom to invite. A mutual yes leads to an invitation and event details. I led the visual direction and made the two rounds of UI mockups shown here after discussing the idea with a friend. The original screens primarily show the guest journey; the host side remains a concept to work through.',
         ],
       },
       {
         title: 'Iteration 1 — establishing the interface',
         paragraphs: [
-          'The first set explores a card-based discovery interface, an invitation screen, and event details. Profile and event-history screens extend the concept beyond the initial decision to attend.',
+          'The first set explores a swipeable stack of event cards, the invitation after a match, and event details. Profile and event-history screens extend the concept beyond the initial decision to attend.',
           'The screens also explore messaging, check-in, and a help area. Together they show the breadth of the concept, while leaving interaction rules and edge cases to be resolved.',
         ],
         images: [
@@ -131,7 +131,8 @@ export const DESIGN: DesignProject[] = [
       {
         title: 'Retrospective and next iteration',
         paragraphs: [
-          'The next step would be to narrow the concept to one complete journey: discover an event, inspect its details, respond, and understand the confirmation. A clickable prototype could make the distinction between RSVP and check-in explicit and test whether navigation and event information are clear.',
+          'The next step would be to prototype both sides of one match: a guest expresses interest, a host reviews that interest, and an invitation becomes a plan. This would make the matching rules, RSVP, and check-in distinct and test whether the extra host decision helps or simply adds friction.',
+          'Host curation could also make the experience exclusionary or unclear to guests. A stronger version needs explicit criteria, a respectful response for people who are not invited, and a way to avoid reducing people to a profile card.',
           'The location-sharing and “Lifesaver” concepts need particular care around consent, visibility, and expectations of help. A future version should explain who can see activity and location, and should not imply dependable emergency assistance. Text legibility, labeled navigation, and missing error states would also be priorities.',
           'These are ideas for a future version of FOMO.',
         ],
