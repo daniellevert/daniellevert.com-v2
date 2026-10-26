@@ -29,8 +29,8 @@ export const DESIGN: DesignProject[] = [
   {
     id: 'teddys-brochure',
     title: 'Teddy\'s Brochure',
-    summary: 'A college team project connecting national-park discovery, visitor information, and Android interface design.',
-    description: 'Teddy’s Brochure is a national-parks travel guide developed as a college team project. I contributed the UI mockups, Android XML layouts, and frontend functionality in Java, connecting visual design with implementation.',
+    summary: 'An Android national-parks guide connecting discovery, attractions, maps, weather, and reviews.',
+    description: 'Teddy’s Brochure is a national-parks travel guide. I contributed UI mockups, Android XML layouts, and Java frontend functionality on the project team, connecting visual design with implementation.',
     tools: ['Adobe Illustrator', 'Adobe Photoshop', 'Android Studio', 'Java', 'XML'],
     cover: '/design/teddys-brochure/01.png',
     links: [
@@ -70,7 +70,7 @@ export const DESIGN: DesignProject[] = [
         title: 'From mockups to implementation',
         paragraphs: [
           'The public project includes Android layouts and Java frontend code, alongside a shared backend. The source includes attraction-detail navigation, a map centered on park coordinates, review entry, and cached attraction content for offline use. These features reflect the team’s shared implementation.',
-          'The result is a college project with both visual mockups and Android implementation artifacts. The images here show the original design direction; the linked repository documents the implementation.',
+          'The result is a team project with visual mockups and Android implementation artifacts. The images here show the original design direction; the linked repository documents the implementation.',
         ],
       },
       {
