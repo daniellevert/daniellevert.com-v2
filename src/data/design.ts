@@ -29,8 +29,8 @@ export const DESIGN: DesignProject[] = [
   {
     id: 'teddys-brochure',
     title: 'Teddy\'s Brochure',
-    summary: 'An Android national-parks guide connecting discovery, attractions, maps, weather, and reviews.',
-    description: 'Teddy’s Brochure is a national-parks travel guide. I contributed UI mockups, Android XML layouts, and Java frontend functionality on the project team, connecting visual design with implementation.',
+    summary: 'A mobile guide that brings national parks, attractions, maps, weather, and reviews together.',
+    description: 'Teddy’s Brochure brings park discovery and practical trip information into one Android guide. I designed all of the UI mockups, then worked with the team to bring the experience to life in XML and Java, contributing to the frontend implementation.',
     tools: ['Adobe Illustrator', 'Adobe Photoshop', 'Android Studio', 'Java', 'XML'],
     cover: '/design/teddys-brochure/01.png',
     links: [
@@ -51,7 +51,7 @@ export const DESIGN: DesignProject[] = [
       {
         title: 'My role and collaboration',
         paragraphs: [
-          'I created the mockups in Illustrator and Photoshop and worked on an agile team with Adam Sammakia and Tru Nguyen to customize and implement the application. My contribution included XML interface layouts and Java frontend behavior.',
+          'I designed all of the UI mockups in Illustrator and Photoshop. Adam Sammakia, Tru Nguyen, and I worked together on the Android implementation; I also contributed XML layouts and Java frontend functionality.',
           'The original idea and development document were created by Cecilia Avila, Eugenio Perez, Kaveesha Weerasiri, and Adrian Zavala.',
         ],
       },
@@ -86,8 +86,8 @@ export const DESIGN: DesignProject[] = [
   {
     id: 'fomo',
     title: 'FOMO',
-    summary: 'An event-app concept exploring discovery, invitations, and participation through two visual design iterations.',
-    description: 'FOMO is an app concept for connecting event creators and attendees around in-person social events. I created the interface mockups in Illustrator and Photoshop, exploring how discovery, invitations, event details, and participation could fit together.',
+    summary: 'An event app concept designed to help people connect through real-life experiences.',
+    description: 'FOMO is an event app concept designed to bring people together in real life. I created two rounds of UI mockups in Illustrator and Photoshop, imagining how hosts and guests could find each other, make plans, and share the experience.',
     tools: ['Adobe Illustrator', 'Adobe Photoshop'],
     cover: '/design/fomo/cover.jpg',
     images: [
@@ -99,10 +99,10 @@ export const DESIGN: DesignProject[] = [
     ],
     sections: [
       {
-        title: 'Purpose and scope',
+        title: 'The idea',
         paragraphs: [
-          'The concept considers two sides of an event experience: people hosting gatherings and people deciding where to go. The screens explore event discovery, invitations, RSVP and check-in states, profiles, and event history.',
-          'My contribution shown here is UI and visual design across two iterations. The work is presented as a concept, with visual mockups as its deliverable.',
+          'An event starts before anyone walks through the door. FOMO imagines how hosts could share what they are creating and guests could find a gathering that feels worth showing up for. The mockups follow discovery, invitations, RSVP and check-in, profiles, and the memories left after an event.',
+          'I designed the UI and visual direction across two rounds of mockups. This is a concept, with the original screens as its deliverable.',
         ],
       },
       {
@@ -121,7 +121,7 @@ export const DESIGN: DesignProject[] = [
         title: 'Iteration 2 — developing the visual direction',
         paragraphs: [
           'The second set develops a more consistent purple-and-lime visual identity, with photo-led cards, revised typography, gradients, and repeated navigation elements. Event details bring attendance, messaging, and check-in controls into the same view.',
-          'The comparison documents visual iteration: changes in layout, styling, and interface detail. Evaluating their effect on usability would be a next step.',
+          'The two rounds show how the look and feel evolved. Testing whether the newer screens make the experience clearer would be a next step.',
         ],
         images: [
           { src: '/design/fomo/cover.jpg', alt: 'Second-iteration FOMO discovery, invitation, event-detail, and Lifesaver concept screens', caption: 'Second iteration: a more developed visual identity across the event journey.' },
@@ -133,7 +133,7 @@ export const DESIGN: DesignProject[] = [
         paragraphs: [
           'The next step would be to narrow the concept to one complete journey: discover an event, inspect its details, respond, and understand the confirmation. A clickable prototype could make the distinction between RSVP and check-in explicit and test whether navigation and event information are clear.',
           'The location-sharing and “Lifesaver” concepts need particular care around consent, visibility, and expectations of help. A future version should explain who can see activity and location, and should not imply dependable emergency assistance. Text legibility, labeled navigation, and missing error states would also be priorities.',
-          'These are retrospective design opportunities and proposed evaluation steps, separate from the original mockups.',
+          'These are ideas for a future version of FOMO.',
         ],
       },
     ],
