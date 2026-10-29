@@ -31,10 +31,9 @@ export default function DesignPopover({
       onClick={onClose}
     >
       <article className="modal-panel" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
-
         {/* Sticky header with title, tools, links */}
         <header className="modal-head">
+          <button type="button" className="modal-close" onClick={onClose} aria-label="Close">×</button>
           <h3 id={titleId} className="modal-title">{project.title}</h3>
 
           {project.tools?.length ? (
