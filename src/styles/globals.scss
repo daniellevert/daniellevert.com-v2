@@ -403,7 +403,9 @@ footer.site a { text-decoration: underline; }
 /* DESIGN POPOVER: WHITE PANEL, STICKY HEADER, LARGER TITLE ----------------- */
 .modal-backdrop {
   position: fixed; inset: 0; z-index: 55;
-  background: rgba(0,0,0,.88);
+  background: transparent;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
   display: grid; place-items: center;
   padding: 16px; /* safe space on small screens */
 }
@@ -420,6 +422,10 @@ footer.site a { text-decoration: underline; }
 }
 .modal-close {
   position: absolute; right: 10px; top: 10px;
+  width: 44px; height: 44px;
+  display: grid; place-items: center;
+  color: var(--fg);
+  cursor: pointer;
   background: rgba(0,0,0,.04);
   border: 1px solid rgba(0,0,0,.1);
   border-radius: 999px;
@@ -427,12 +433,13 @@ footer.site a { text-decoration: underline; }
   font-size: 20px; line-height: 1;
 }
 .modal-close:hover { background: rgba(0,0,0,.08); }
+.modal-close:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 
 .modal-head {
   position: sticky; top: 0;
   background: var(--bg);
   border-bottom: 1px solid rgba(0,0,0,.08);
-  padding: 14px 16px;
+  padding: 14px 64px 14px 16px;
   display: grid;
   gap: 8px;
 }
